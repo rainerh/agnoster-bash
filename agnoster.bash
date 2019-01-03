@@ -255,6 +255,14 @@ prompt_git() {
     fi
 }
 
+prompt_k8s(){
+  k8s_current_context=$(kube_ps1 2> /dev/null)
+  
+  if [[ -n $k8s_current_context ]] ; then
+    prompt_segment white blue "${k8s_current_context} " 
+  fi  
+}
+
 # Dir: current working directory
 prompt_dir() {
     prompt_segment blue black '\w'
@@ -398,6 +406,7 @@ build_prompt() {
     [[ -z ${AG_NO_CONTEXT+x} ]] && prompt_context
     prompt_virtualenv
     prompt_dir
+    prompt_k8s
     prompt_git
     prompt_end
 }
